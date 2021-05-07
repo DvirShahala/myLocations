@@ -1,0 +1,39 @@
+<mat-toolbar>
+  <div *ngIf="!this.currentCategory; else currName">My Locations</div>
+  <ng-template #currName
+    ><div class="title">Current Category:</div>
+    {{ this.currentCategory.name }}</ng-template
+  >
+
+  <span class="spacer"></span>
+  <div class="button-menu">
+    <button
+      mat-stroked-button
+      (click)="openAddCategoryDialog()"
+      *ngIf="!(this.catergoryService.chooseCategory$ | async)"
+    >
+      Add Category
+    </button>
+    <button
+      mat-stroked-button
+      (click)="openUpdateDialog()"
+      *ngIf="this.catergoryService.chooseCategory$ | async"
+    >
+      Update Category
+    </button>
+    <button
+      mat-stroked-button
+      (click)="openViewDetailsDialog()"
+      *ngIf="this.catergoryService.chooseCategory$ | async"
+    >
+      View Details
+    </button>
+    <button
+      mat-stroked-button
+      (click)="deleteCategory()"
+      *ngIf="this.catergoryService.chooseCategory$ | async"
+    >
+      Delete Category
+    </button>
+  </div>
+</mat-toolbar>

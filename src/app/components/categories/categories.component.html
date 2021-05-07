@@ -1,0 +1,18 @@
+<div class="container">
+  <h1 class="title">Categories</h1>
+
+  <mat-selection-list
+    #categories
+    class="list"
+    [multiple]="false"
+    (selectionChange)="onSelection($event, categories.selectedOptions)"
+  >
+    <mat-list-option
+      class="text"
+      *ngFor="let category of categoryList"
+      [value]="category"
+    >
+      {{ category.name }}
+    </mat-list-option>
+  </mat-selection-list>
+</div>

@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Update Category</h1>
+<p>Current Category Name: {{ this.currCategory.name }}</p>
+
+<form [formGroup]="formGroup" class="updateForm">
+  <mat-form-field>
+    <mat-label>New Category Name</mat-label>
+    <input formControlName="name" matInput required />
+    <mat-error *ngIf="!formGroup.controls['name'].valid">
+      {{ getErrorCatName() }}
+    </mat-error>
+  </mat-form-field>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button cdkFocusInitial (click)="updateCategory(formGroup.value)" [disabled]="!formGroup.valid">
+    Update
+  </button>
+</form>
