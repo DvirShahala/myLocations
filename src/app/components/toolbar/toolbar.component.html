@@ -1,4 +1,4 @@
-<mat-toolbar>
+<!-- <mat-toolbar>
   <div *ngIf="!this.currentCategory; else currName">My Locations</div>
   <ng-template #currName
     ><div class="title">Current Category:</div>
@@ -36,4 +36,63 @@
       Delete Category
     </button>
   </div>
-</mat-toolbar>
+</mat-toolbar> -->
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+  <div class="main-title" *ngIf="!this.currentCategory; else currName">
+    My Locations
+  </div>
+  <ng-template #currName
+    ><div class="main-title">
+      Current Category: {{ this.currentCategory.name }}
+    </div>
+  </ng-template>
+  <span class="spacer"></span>
+
+  <button class="navbar-toggler" (click)="openNavbar()" type="button">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" [ngClass]="{ show: navbarOpen }">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <button
+          mat-stroked-button
+          (click)="openAddCategoryDialog()"
+          *ngIf="!(this.catergoryService.chooseCategory$ | async)"
+        >
+          Add Category
+        </button>
+      </li>
+
+      <li class="nav-item">
+        <button
+          mat-stroked-button
+          (click)="openUpdateDialog()"
+          *ngIf="this.catergoryService.chooseCategory$ | async"
+        >
+          Update Category
+        </button>
+      </li>
+
+      <li class="nav-item">
+        <button
+          mat-stroked-button
+          (click)="openViewDetailsDialog()"
+          *ngIf="this.catergoryService.chooseCategory$ | async"
+        >
+          View Details
+        </button>
+      </li>
+      <li class="nav-item">
+        <button
+          mat-stroked-button
+          (click)="deleteCategory()"
+          *ngIf="this.catergoryService.chooseCategory$ | async"
+        >
+          Delete Category
+        </button>
+      </li>
+    </ul>
+  </div>
+</nav>
