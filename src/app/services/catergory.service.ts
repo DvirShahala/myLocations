@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { Category } from '../models/interfaces';
-import { find } from 'rxjs/operators';
+import { Injectable } from "@angular/core";
+import { BehaviorSubject } from "rxjs";
+import { Category } from "../models/interfaces";
+import { find } from "rxjs/operators";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class CatergoryService {
   categoriesList$: BehaviorSubject<Category[]> = new BehaviorSubject<
@@ -16,41 +16,43 @@ export class CatergoryService {
   );
 
   constructor() {
-    if (!localStorage.getItem('categories')) {
+    if (!localStorage.getItem("categories")) {
       this.categoriesList$.next([
-        { name: 'New York' },
-        { name: 'Vegas' },
-        { name: 'Rome' },
-        { name: 'Pocket' },
-        { name: 'Madrid' },
-        { name: 'Berlin' },
+        { name: "Food" },
+        { name: "Museums" },
+        { name: "Bars" },
+        { name: "Clinic" },
+        { name: "Park" },
       ]);
       localStorage.setItem(
-        'categories',
+        "categories",
         JSON.stringify(this.categoriesList$.getValue())
       );
     }
   }
 
   // Category List
+  // Get the current categories list
   getCategoryList() {
     if (
       !this.categoriesList$.getValue() &&
-      localStorage.getItem('categories')
+      localStorage.getItem("categories")
     ) {
-      this.categoriesList$.next(JSON.parse(localStorage.getItem('categories')));
+      this.categoriesList$.next(JSON.parse(localStorage.getItem("categories")));
     }
 
     return this.categoriesList$;
   }
 
+  // Delete category
   deleteCategory(category: Category) {
     const updateList = this.categoriesList$
       .getValue()
       .filter((c) => c !== category);
-      this.updateList(updateList);
+    this.updateList(updateList);
   }
 
+  // Update category
   updateCategory(category: Category) {
     const updateList = this.categoriesList$.getValue();
 
@@ -61,6 +63,7 @@ export class CatergoryService {
     this.updateList(updateList);
   }
 
+  // Add new category
   addCategory(category: Category) {
     const updateList = this.categoriesList$.getValue();
 
@@ -68,27 +71,28 @@ export class CatergoryService {
     this.updateList(updateList);
   }
 
+  // Update the list
   updateList(categoriesList: Category[]) {
     this.categoriesList$.next(categoriesList);
-    localStorage.setItem('categories', JSON.stringify(categoriesList));
+    localStorage.setItem("categories", JSON.stringify(categoriesList));
 
-    localStorage.removeItem('currentCategory');
+    localStorage.removeItem("currentCategory");
     this.chooseCategory$.next(null);
   }
 
   // Choose Category
   newSelection(category: Category) {
     this.chooseCategory$.next(category);
-    localStorage.setItem('currentCategory', JSON.stringify(category));
+    localStorage.setItem("currentCategory", JSON.stringify(category));
   }
 
   getCurrentCategory() {
     if (
       !this.chooseCategory$.getValue() &&
-      localStorage.getItem('currentCategory')
+      localStorage.getItem("currentCategory")
     ) {
       this.chooseCategory$.next(
-        JSON.parse(localStorage.getItem('currentCategory'))
+        JSON.parse(localStorage.getItem("currentCategory"))
       );
     }
 
