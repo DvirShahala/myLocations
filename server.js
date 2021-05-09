@@ -9,10 +9,10 @@ const express = require("express");
 const app = express();
 app.use(requireHTTPS);
 
-app.use(express.static("./dist/my-locations"));
+app.use(express.static("./dist/myLocations"));
 
 app.get("/*", function (req, res) {
-  res.sendFile("index.html", { root: "dist/my-locations/" });
+  res.sendFile("index.html", { root: "dist/myLocations/" });
 });
 
 app.listen(process.env.PORT || 8080);
