@@ -15,6 +15,7 @@ import { LocationsComponent } from "./components/locations/locations.component";
 import { AddLocationComponent } from "./components/add-location/add-location.component";
 import { ViewLocationComponent } from "./components/view-location/view-location.component";
 import { UpdateLocationComponent } from "./components/update-location/update-location.component";
+import { MapsComponent } from './components/maps/maps.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { UpdateLocationComponent } from "./components/update-location/update-loc
     AddLocationComponent,
     ViewLocationComponent,
     UpdateLocationComponent,
+    MapsComponent,
   ],
   imports: [
     BrowserModule,

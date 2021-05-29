@@ -5,6 +5,11 @@ export interface Category {
 export interface MyLocation {
   name: string;
   address: string;
-  coordinates: string;
+  coordinates: Coordinates;
   category: Category;
+}
+
+export interface Coordinates {
+  latitude: number;
+  longitude: number;
 }

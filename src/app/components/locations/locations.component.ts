@@ -27,6 +27,8 @@ export class LocationsComponent implements OnInit, AfterViewInit {
   expandedLocation: MyLocation[] = [];
   expandedSubLocation: MyLocation[] = [];
   _allGroup: any[];
+  myLatitude: number;
+  myLongitude: number;
 
   categoryFilter = new FormControl();
   filteredValues = {
@@ -36,7 +38,7 @@ export class LocationsComponent implements OnInit, AfterViewInit {
     category: { name: "" },
   };
 
-  constructor(private locationService: LocationService) {}
+  constructor(public locationService: LocationService) {}
 
   ngOnInit(): void {
     this.locationService.getLocationList().subscribe((res: MyLocation[]) => {
@@ -69,6 +71,8 @@ export class LocationsComponent implements OnInit, AfterViewInit {
 
   clickedRow(row: MyLocation) {
     this.locationService.newSelection(row);
+    this.myLatitude = row.coordinates.latitude;
+    this.myLongitude = row.coordinates.longitude;
   }
 
   groupBy() {

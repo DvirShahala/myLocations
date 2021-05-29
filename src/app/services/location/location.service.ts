@@ -20,25 +20,25 @@ export class LocationService {
         {
           name: "Tel-Aviv",
           address: "Even Grvirol 22",
-          coordinates: "112233",
+          coordinates: { latitude: 32.0853, longitude: 34.781769 },
           category: { name: "Food" },
         },
         {
-          name: "London",
+          name: "Las Vegas",
           address: "Queen Elizabet",
-          coordinates: "223344",
+          coordinates: { latitude: 36.169941, longitude: -115.139832 },
           category: { name: "Museums" },
         },
         {
           name: "Amsterdam",
           address: "Dam Squere",
-          coordinates: "334455",
+          coordinates: { latitude: 32.0853, longitude: 34.781769 },
           category: { name: "Bars" },
         },
         {
           name: "New York",
           address: "Times Squere",
-          coordinates: "445566",
+          coordinates: { latitude: 32.0853, longitude: 34.781769 },
           category: { name: "Bars" },
         },
       ]);
