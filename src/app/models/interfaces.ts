@@ -13,3 +13,11 @@ export interface Coordinates {
   latitude: number;
   longitude: number;
 }
+
+export interface updateLocation {
+  name: string;
+  address: string;
+  latitude: string;
+  longitude: string;
+  category: string;
+}

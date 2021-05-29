@@ -1,16 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MatDialogRef } from "@angular/material/dialog";
-import { Category, MyLocation } from "src/app/models/interfaces";
+import {
+  Category,
+  MyLocation,
+  updateLocation,
+} from "src/app/models/interfaces";
 import { LocationService } from "src/app/services/location/location.service";
-
-export interface updateLocation {
-  name: string;
-  address: string;
-  latitude: string;
-  longitude: string;
-  category: string;
-}
 
 @Component({
   selector: "app-update-location",
@@ -38,12 +34,6 @@ export class UpdateLocationComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       name: [this.currLocation.name, [Validators.required]],
       address: [this.currLocation.address, [Validators.required]],
-      // coordinates: [
-      //   this.currLocation.coordinates.latitude +
-      //     ", " +
-      //     this.currLocation.coordinates.longitude,
-      //   [Validators.required],
-      // ],
       latitude: [this.currLocation.coordinates.latitude, [Validators.required]],
       longitude: [
         this.currLocation.coordinates.longitude,
@@ -78,14 +68,12 @@ export class UpdateLocationComponent implements OnInit {
   }
 
   updateLocation(updatedLocation: updateLocation) {
-    let x = Number(updatedLocation.latitude);
-    let y = Number(updatedLocation.longitude);
     const newLocation: MyLocation = {
       name: updatedLocation.name,
       address: updatedLocation.address,
       coordinates: {
-        latitude: x,
-        longitude: y,
+        latitude: Number(updatedLocation.latitude),
+        longitude: Number(updatedLocation.longitude),
       },
       category: { name: updatedLocation.category },
     };

@@ -29,6 +29,8 @@ export class LocationsComponent implements OnInit, AfterViewInit {
   _allGroup: any[];
   myLatitude: number;
   myLongitude: number;
+  ifClick: boolean = false;
+  preRow: MyLocation = null;
 
   categoryFilter = new FormControl();
   filteredValues = {
@@ -69,10 +71,20 @@ export class LocationsComponent implements OnInit, AfterViewInit {
     this.dataSource.sort = this.sort;
   }
 
-  clickedRow(row: MyLocation) {
-    this.locationService.newSelection(row);
-    this.myLatitude = row.coordinates.latitude;
-    this.myLongitude = row.coordinates.longitude;
+  clickedRow(event, row: MyLocation) {
+    // event.target.parentElement.classList.add("clickRow");
+    if (this.preRow != row && this.ifClick) {
+      this.locationService.newSelection(row);
+      this.myLatitude = row.coordinates.latitude;
+      this.myLongitude = row.coordinates.longitude;
+    } else {
+      this.ifClick = !this.ifClick;
+      this.locationService.newSelection(row);
+      this.myLatitude = row.coordinates.latitude;
+      this.myLongitude = row.coordinates.longitude;
+    }
+    this.preRow = row;
+    // event.target.parentElement.classList.remove("clickRow");
   }
 
   groupBy() {

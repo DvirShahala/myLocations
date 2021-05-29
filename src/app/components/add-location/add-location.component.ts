@@ -1,7 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MatDialogRef } from "@angular/material/dialog";
-import { Category, MyLocation } from "src/app/models/interfaces";
+import {
+  Category,
+  MyLocation,
+  updateLocation,
+} from "src/app/models/interfaces";
 import { LocationService } from "src/app/services/location/location.service";
 
 @Component({
@@ -28,7 +32,9 @@ export class AddLocationComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       name: [null, [Validators.required]],
       address: [null, [Validators.required]],
-      coordinates: [null, [Validators.required]],
+      // coordinates: [null, [Validators.required]],
+      latitude: [null, [Validators.required]],
+      longitude: [null, [Validators.required]],
       category: [null, [Validators.required]],
     });
   }
@@ -45,15 +51,29 @@ export class AddLocationComponent implements OnInit {
       : "";
   }
 
-  getErrorCoordinates() {
-    return this.formGroup.get("coordinates").hasError("required")
-      ? "Coordinates is required"
+  getErrorCoordinatesLat() {
+    return this.formGroup.get("latitude").hasError("required")
+      ? "Coordinates latitude is required"
       : "";
   }
 
-  addLocation(newCLocation: MyLocation) {
-    newCLocation.category = { name: JSON.stringify(newCLocation.category) };
-    this.locationService.addLocation(newCLocation);
+  getErrorCoordinatesLon() {
+    return this.formGroup.get("longitude").hasError("required")
+      ? "Coordinates longitude is required"
+      : "";
+  }
+
+  addLocation(newCLocation: updateLocation) {
+    const newLocation: MyLocation = {
+      name: newCLocation.name,
+      address: newCLocation.address,
+      coordinates: {
+        latitude: Number(newCLocation.latitude),
+        longitude: Number(newCLocation.longitude),
+      },
+      category: { name: newCLocation.category },
+    };
+    this.locationService.addLocation(newLocation);
     this.dialogRef.close();
   }
 

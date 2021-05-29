@@ -18,7 +18,8 @@ export class MapsComponent implements OnInit, OnChanges {
 
   private initMap(): void {
     // const cusIcon = L.icon({
-    //   iconUrl: "./marker-icon.png",
+    //   // iconUrl: "./marker-icon.png",
+    //   iconUrl: "marker-icon.png",
 
     //   iconSize: [38, 100], // size of the icon
     //   shadowSize: [50, 64], // size of the shadow
@@ -41,9 +42,10 @@ export class MapsComponent implements OnInit, OnChanges {
           '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
       }
     );
-    const marker = L.marker([this.latitude, this.longitude], {
-      /* icon: cusIcon,*/
-    }).addTo(this.map);
+    // const marker = L.marker([this.latitude, this.longitude], {
+    //   // icon: cusIcon,
+    // }).addTo(this.map);
+    L.circle([this.latitude, this.longitude], { radius: 3500 }).addTo(this.map);
 
     tiles.addTo(this.map);
   }

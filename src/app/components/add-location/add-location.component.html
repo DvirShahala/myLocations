@@ -18,10 +18,18 @@
   </mat-form-field>
 
   <mat-form-field>
-    <mat-label>Coordinates</mat-label>
-    <input formControlName="coordinates" matInput required />
-    <mat-error *ngIf="!formGroup.controls['coordinates'].valid">
-      {{ getErrorCoordinates() }}
+    <mat-label>Coordinates Latitude</mat-label>
+    <input formControlName="latitude" matInput required />
+    <mat-error *ngIf="!formGroup.controls['latitude'].valid">
+      {{ getErrorCoordinatesLat() }}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Coordinates Longitude</mat-label>
+    <input formControlName="longitude" matInput required />
+    <mat-error *ngIf="!formGroup.controls['longitude'].valid">
+      {{ getErrorCoordinatesLon() }}
     </mat-error>
   </mat-form-field>
 
