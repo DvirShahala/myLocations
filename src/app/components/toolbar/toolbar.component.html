@@ -1,4 +1,7 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+<nav
+  *ngIf="router.url === '/categories'"
+  class="navbar navbar-expand-md navbar-dark bg-dark"
+>
   <div class="main-title" *ngIf="!this.currentCategory; else currName">
     My Locations
   </div>
@@ -28,7 +31,7 @@
       <li class="nav-item">
         <button
           mat-stroked-button
-          (click)="openUpdateDialog()"
+          (click)="openUpdateCategoryDialog()"
           *ngIf="this.catergoryService.chooseCategory$ | async"
         >
           Update Category
@@ -38,10 +41,10 @@
       <li class="nav-item">
         <button
           mat-stroked-button
-          (click)="openViewDetailsDialog()"
+          (click)="openViewDetailsCategoryDialog()"
           *ngIf="this.catergoryService.chooseCategory$ | async"
         >
-          View Details
+          View Category
         </button>
       </li>
       <li class="nav-item">
@@ -51,6 +54,68 @@
           *ngIf="this.catergoryService.chooseCategory$ | async"
         >
           Delete Category
+        </button>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<nav
+  *ngIf="router.url === '/locations'"
+  class="navbar navbar-expand-md navbar-dark bg-dark"
+>
+  <div class="main-title" *ngIf="!this.currentLocation; else currName">
+    My Locations
+  </div>
+  <ng-template #currName
+    ><div class="main-title">
+      Current Location: {{ this.currentLocation.name }}
+    </div>
+  </ng-template>
+  <span class="spacer"></span>
+
+  <button class="navbar-toggler" (click)="openNavbar()" type="button">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" [ngClass]="{ show: navbarOpen }">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <button
+          mat-stroked-button
+          (click)="openAddLocationDialog()"
+          *ngIf="!(this.locationService.chooseLocation$ | async)"
+        >
+          Add Location
+        </button>
+      </li>
+
+      <li class="nav-item">
+        <button
+          mat-stroked-button
+          (click)="openUpdateLocationDialog()"
+          *ngIf="this.locationService.chooseLocation$ | async"
+        >
+          Update Location
+        </button>
+      </li>
+
+      <li class="nav-item">
+        <button
+          mat-stroked-button
+          (click)="openViewDetailsLocationDialog()"
+          *ngIf="this.locationService.chooseLocation$ | async"
+        >
+          View Location
+        </button>
+      </li>
+      <li class="nav-item">
+        <button
+          mat-stroked-button
+          (click)="deleteLocation()"
+          *ngIf="this.locationService.chooseLocation$ | async"
+        >
+          Delete Location
         </button>
       </li>
     </ul>

@@ -1,0 +1,51 @@
+<h1 mat-dialog-title>Add New Location</h1>
+
+<form [formGroup]="formGroup" class="updateForm">
+  <mat-form-field>
+    <mat-label>Location Name</mat-label>
+    <input formControlName="name" matInput required />
+    <mat-error *ngIf="!formGroup.controls['name'].valid">
+      {{ getErrorLocName() }}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Address</mat-label>
+    <input formControlName="address" matInput required />
+    <mat-error *ngIf="!formGroup.controls['address'].valid">
+      {{ getErroraddress() }}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Coordinates</mat-label>
+    <input formControlName="coordinates" matInput required />
+    <mat-error *ngIf="!formGroup.controls['coordinates'].valid">
+      {{ getErrorCoordinates() }}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Category Name</mat-label>
+
+    <mat-select formControlName="category" required>
+      <mat-option *ngFor="let category of categories" [value]="category.name">
+        {{ category.name }}
+      </mat-option>
+    </mat-select>
+
+    <!-- <mat-error *ngIf="!formGroup.controls['category'].valid">
+      {{ getErrorCatName() }}
+    </mat-error> -->
+  </mat-form-field>
+
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button
+    mat-button
+    cdkFocusInitial
+    (click)="addLocation(formGroup.value)"
+    [disabled]="!formGroup.valid"
+  >
+    Add
+  </button>
+</form>

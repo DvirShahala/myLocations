@@ -1,11 +1,16 @@
 import { Component, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
+import { Router } from "@angular/router";
 import { BehaviorSubject, Observable } from "rxjs";
-import { Category } from "src/app/models/interfaces";
-import { CatergoryService } from "src/app/services/catergory.service";
+import { Category, MyLocation } from "src/app/models/interfaces";
+import { CatergoryService } from "src/app/services/category/catergory.service";
+import { LocationService } from "src/app/services/location/location.service";
 import { AddCategoryComponent } from "../add-category/add-category.component";
+import { AddLocationComponent } from "../add-location/add-location.component";
 import { UpdateCategoryComponent } from "../update-category/update-category.component";
+import { UpdateLocationComponent } from "../update-location/update-location.component";
 import { ViewDetailsComponent } from "../view-details/view-details.component";
+import { ViewLocationComponent } from "../view-location/view-location.component";
 
 @Component({
   selector: "app-toolbar",
@@ -15,11 +20,17 @@ import { ViewDetailsComponent } from "../view-details/view-details.component";
 export class ToolbarComponent implements OnInit {
   currentCategory: Category;
   categoryName: string;
+
+  currentLocation: MyLocation;
+  LocationName: string;
+
   navbarOpen: boolean = false;
 
   constructor(
     public catergoryService: CatergoryService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public router: Router,
+    private locationService: LocationService
   ) {}
 
   openNavbar() {
@@ -28,10 +39,10 @@ export class ToolbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.catergoryService.getCurrentCategory().subscribe((res: Category) => {
-      // console.log(res);
-      // console.log(this.currentCategoryName);
       this.currentCategory = res;
-      ///console.log(this.currentCategoryName);
+    });
+    this.locationService.getCurrentLocation().subscribe((res: MyLocation) => {
+      this.currentLocation = res;
     });
   }
 
@@ -47,7 +58,19 @@ export class ToolbarComponent implements OnInit {
     });
   }
 
-  openViewDetailsDialog(): void {
+  openAddLocationDialog(): void {
+    const dialogRef = this.dialog.open(AddLocationComponent, {
+      width: "250px",
+    });
+
+    dialogRef.afterClosed().subscribe((result: string) => {
+      console.log("The dialog was closed");
+      this.LocationName = result;
+      console.log(this.LocationName);
+    });
+  }
+
+  openViewDetailsCategoryDialog(): void {
     const dialogRef = this.dialog.open(ViewDetailsComponent, {
       width: "250px",
     });
@@ -57,8 +80,28 @@ export class ToolbarComponent implements OnInit {
     });
   }
 
-  openUpdateDialog(): void {
+  openViewDetailsLocationDialog(): void {
+    const dialogRef = this.dialog.open(ViewLocationComponent, {
+      width: "280px",
+    });
+
+    dialogRef.afterClosed().subscribe((result: string) => {
+      console.log("The dialog was closed");
+    });
+  }
+
+  openUpdateCategoryDialog(): void {
     const dialogRef = this.dialog.open(UpdateCategoryComponent, {
+      width: "300px",
+    });
+
+    dialogRef.afterClosed().subscribe((result: string) => {
+      console.log("The dialog was closed");
+    });
+  }
+
+  openUpdateLocationDialog(): void {
+    const dialogRef = this.dialog.open(UpdateLocationComponent, {
       width: "300px",
     });
 
@@ -70,6 +113,12 @@ export class ToolbarComponent implements OnInit {
   deleteCategory() {
     this.catergoryService.deleteCategory(
       this.catergoryService.getCurrentCategory().getValue()
+    );
+  }
+
+  deleteLocation() {
+    this.locationService.deleteLocation(
+      this.locationService.getCurrentLocation().getValue()
     );
   }
 }

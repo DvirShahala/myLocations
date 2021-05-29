@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
-import { Category } from "../models/interfaces";
+import { Category } from "../../models/interfaces";
 import { find } from "rxjs/operators";
 
 @Injectable({
@@ -58,7 +58,9 @@ export class CatergoryService {
 
     const updateCategoryIndex = this.categoriesList$
       .getValue()
-      .findIndex((categ) => categ.name == this.chooseCategory$.getValue().name);
+      .findIndex(
+        (categ: Category) => categ.name == this.chooseCategory$.getValue().name
+      );
     updateList[updateCategoryIndex] = category;
     this.updateList(updateList);
   }
