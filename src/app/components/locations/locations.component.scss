@@ -2,15 +2,16 @@
   display: flex;
   justify-content: center;
   font-size: 1.8rem;
-}
-.text {
-  font-size: 20px;
+  margin-top: 1%;
 }
 .loc-tabla {
   width: 100%;
 }
 th.mat-sort-header-sorted {
   color: black;
+}
+.mat-header-cell {
+  font-size: 1.2rem;
 }
 th {
   font-size: 1.1rem;
@@ -28,7 +29,7 @@ td {
   background-color: rgb(65, 169, 196);
 }
 .flexRow {
-  margin-top: 1%;
+  // margin-top: 1%;
   width: 80%;
   display: flex;
   flex-direction: row;
@@ -42,9 +43,12 @@ td {
 }
 .location-map {
   width: 100%;
-  height: 25vh;
+  height: 21vh;
+  margin-top: 1%;
+}
+.catHeader {
+  width: auto;
 }
 .catFilter {
-  margin-left: 5%;
-  margin-right: 10%;
+  font-size: 1rem;
 }

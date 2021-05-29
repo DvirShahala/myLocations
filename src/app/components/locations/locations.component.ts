@@ -26,7 +26,7 @@ export class LocationsComponent implements OnInit, AfterViewInit {
   groupByColumns: string[] = ["category"];
   expandedLocation: MyLocation[] = [];
   expandedSubLocation: MyLocation[] = [];
-  _allGroup: any[];
+  _allGroup: Group[];
   myLatitude: number;
   myLongitude: number;
   ifClick: boolean = false;
@@ -72,7 +72,6 @@ export class LocationsComponent implements OnInit, AfterViewInit {
   }
 
   clickedRow(event, row: MyLocation) {
-    // event.target.parentElement.classList.add("clickRow");
     if (this.preRow != row && this.ifClick) {
       this.locationService.newSelection(row);
       this.myLatitude = row.coordinates.latitude;
@@ -84,7 +83,6 @@ export class LocationsComponent implements OnInit, AfterViewInit {
       this.myLongitude = row.coordinates.longitude;
     }
     this.preRow = row;
-    // event.target.parentElement.classList.remove("clickRow");
   }
 
   groupBy() {
@@ -122,7 +120,7 @@ export class LocationsComponent implements OnInit, AfterViewInit {
     data: any[],
     groupByColumns: string[],
     dataRow: any
-  ): any[] {
+  ) {
     const rootGroup = new Group();
     rootGroup.expanded = true;
     return this.getSublevelNew(
@@ -142,7 +140,7 @@ export class LocationsComponent implements OnInit, AfterViewInit {
     groupByColumns: string[],
     parent: Group,
     dataRow: any
-  ): any[] {
+  ) {
     if (level >= groupByColumns.length) {
       return data;
     }
@@ -185,7 +183,7 @@ export class LocationsComponent implements OnInit, AfterViewInit {
     level: number = 0,
     groupByColumns: string[],
     parent: Group
-  ): any[] {
+  ) {
     if (level >= groupByColumns.length) {
       return data;
     }
