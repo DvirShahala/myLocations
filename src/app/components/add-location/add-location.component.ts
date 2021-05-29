@@ -51,12 +51,6 @@ export class AddLocationComponent implements OnInit {
       : "";
   }
 
-  // getErrorCatName() {
-  //   return this.formGroup.get("category").hasError("required")
-  //     ? "Category name is required"
-  //     : "";
-  // }
-
   addLocation(newCLocation: MyLocation) {
     newCLocation.category = { name: JSON.stringify(newCLocation.category) };
     this.locationService.addLocation(newCLocation);

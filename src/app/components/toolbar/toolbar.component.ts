@@ -82,7 +82,7 @@ export class ToolbarComponent implements OnInit {
 
   openViewDetailsLocationDialog(): void {
     const dialogRef = this.dialog.open(ViewLocationComponent, {
-      width: "280px",
+      width: "450px",
     });
 
     dialogRef.afterClosed().subscribe((result: string) => {

@@ -4,6 +4,14 @@ import { MatDialogRef } from "@angular/material/dialog";
 import { Category, MyLocation } from "src/app/models/interfaces";
 import { LocationService } from "src/app/services/location/location.service";
 
+export interface updateLocation {
+  name: string;
+  address: string;
+  latitude: string;
+  longitude: string;
+  category: string;
+}
+
 @Component({
   selector: "app-update-location",
   templateUrl: "./update-location.component.html",
@@ -30,7 +38,17 @@ export class UpdateLocationComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       name: [this.currLocation.name, [Validators.required]],
       address: [this.currLocation.address, [Validators.required]],
-      coordinates: [this.currLocation.coordinates, [Validators.required]],
+      // coordinates: [
+      //   this.currLocation.coordinates.latitude +
+      //     ", " +
+      //     this.currLocation.coordinates.longitude,
+      //   [Validators.required],
+      // ],
+      latitude: [this.currLocation.coordinates.latitude, [Validators.required]],
+      longitude: [
+        this.currLocation.coordinates.longitude,
+        [Validators.required],
+      ],
       category: [this.currLocation.category.name, [Validators.required]],
     });
   }
@@ -47,23 +65,31 @@ export class UpdateLocationComponent implements OnInit {
       : "";
   }
 
-  getErrorCoordinates() {
-    return this.formGroup.get("coordinates").hasError("required")
-      ? "Coordinates is required"
+  getErrorCoordinatesLat() {
+    return this.formGroup.get("latitude").hasError("required")
+      ? "Coordinates latitude is required"
       : "";
   }
 
-  // getErrorCatName() {
-  //   return this.formGroup.get("category").hasError("required")
-  //     ? "Category name is required"
-  //     : "";
-  // }
+  getErrorCoordinatesLon() {
+    return this.formGroup.get("longitude").hasError("required")
+      ? "Coordinates longitude is required"
+      : "";
+  }
 
-  updateLocation(updatedLocation: MyLocation) {
-    updatedLocation.category = {
-      name: JSON.stringify(updatedLocation.category),
+  updateLocation(updatedLocation: updateLocation) {
+    let x = Number(updatedLocation.latitude);
+    let y = Number(updatedLocation.longitude);
+    const newLocation: MyLocation = {
+      name: updatedLocation.name,
+      address: updatedLocation.address,
+      coordinates: {
+        latitude: x,
+        longitude: y,
+      },
+      category: { name: updatedLocation.category },
     };
-    this.locationService.updateLocation(updatedLocation);
+    this.locationService.updateLocation(newLocation);
     this.dialogRef.close();
   }
 
