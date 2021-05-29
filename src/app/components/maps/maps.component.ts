@@ -46,7 +46,6 @@ export class MapsComponent implements OnInit, OnChanges {
     if (this.map) {
       this.map.remove();
     }
-
     this.initMap();
   }
 }
