@@ -1,0 +1,104 @@
+<div class="flexCol">
+  <div class="flexRow">
+    <h1 class="title">Locations</h1>
+  </div>
+  <div class="flexRow">
+    <mat-form-field class="catFilter">
+      <input
+        matInput
+        [formControl]="categoryFilter"
+        placeholder="Filter category"
+      />
+    </mat-form-field>
+  </div>
+
+  <div class="flexRow">
+    <mat-table
+      [dataSource]="dataSource"
+      matSort
+      class="loc-tabla mat-elevation-z8"
+    >
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Name</mat-header-cell
+        >
+        <mat-cell *matCellDef="let element"> {{ element.name }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="address">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Address</mat-header-cell
+        >
+        <mat-cell *matCellDef="let element">{{ element.address }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="coordinates">
+        <mat-header-cell *matHeaderCellDef>Coordinates</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          {{ element.coordinates.latitude }} ,
+          {{ element.coordinates.longitude }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="category">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          <div class="catHeader flexRow">
+            Category
+
+            <button
+              class="grid-view-header-menu"
+              mat-icon-button
+              [matMenuTriggerFor]="menu"
+            >
+              <mat-icon>menu</mat-icon>
+            </button>
+
+            <mat-menu #menu>
+              <button mat-menu-item (click)="groupBy()">
+                Group By This Field
+              </button>
+              <button mat-menu-item (click)="unGroupBy()">Ungroup</button>
+            </mat-menu>
+          </div>
+        </mat-header-cell>
+
+        <mat-cell *matCellDef="let element">
+          {{ element.category.name }}
+        </mat-cell>
+      </ng-container>
+
+      <mat-row *matHeaderRowDef="displayedColumns"></mat-row>
+      <mat-row
+        mat-row
+        (click)="clickedRow($event, row)"
+        *matRowDef="let row; columns: displayedColumns"
+      ></mat-row>
+
+      <!-- Group header -->
+      <ng-container matColumnDef="groupHeader">
+        <mat-cell colspan="999" *matCellDef="let group">
+          <!-- <mat-icon *ngIf="group.expanded">expand_less </mat-icon>
+        <mat-icon *ngIf="!group.expanded">expand_more</mat-icon> -->
+          <strong
+            >{{ groupByColumns[group.level - 1] }} =
+            {{ group[groupByColumns[group.level - 1]].name }} ({{
+              group.totalCounts
+            }})
+          </strong>
+        </mat-cell>
+      </ng-container>
+      <mat-row
+        *matRowDef="let row; columns: ['groupHeader']; when: isGroup"
+        (click)="groupHeaderClick(row)"
+      ></mat-row>
+    </mat-table>
+  </div>
+
+  <div *ngIf="ifClick" class="flexRow">
+    <app-maps
+      class="location-map"
+      [latitude]="this.myLatitude"
+      [longitude]="this.myLongitude"
+    ></app-maps>
+  </div>
+</div>

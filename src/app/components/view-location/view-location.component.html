@@ -1,0 +1,19 @@
+<h1 mat-dialog-title>View Location Details</h1>
+<div mat-dialog-content>
+  <mat-label><b>Name:</b> {{ this.currLocation.name }} </mat-label>
+</div>
+<div mat-dialog-content>
+  <mat-label><b>Address:</b> {{ this.currLocation.address }} </mat-label>
+</div>
+<div mat-dialog-content>
+  <mat-label
+    ><b>Coordinates:</b> {{ this.currLocation.coordinates.latitude }} ,
+    {{ this.currLocation.coordinates.longitude }}
+  </mat-label>
+</div>
+<div mat-dialog-content>
+  <mat-label><b>Category:</b> {{ this.currLocation.category.name }} </mat-label>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Ok</button>
+</div>
