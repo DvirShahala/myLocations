@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 import { Category } from "../../models/interfaces";
 import { find } from "rxjs/operators";
+import { LocationService } from "../location/location.service";
 
 @Injectable({
   providedIn: "root",
@@ -15,7 +16,7 @@ export class CatergoryService {
     null
   );
 
-  constructor() {
+  constructor(private locationService: LocationService) {
     if (!localStorage.getItem("categories")) {
       this.categoriesList$.next([
         { name: "Food" },
@@ -50,6 +51,8 @@ export class CatergoryService {
       .getValue()
       .filter((c) => c !== category);
     this.updateList(updateList);
+    // Delete the category from the locations
+    this.locationService.deleteCategoryInLocation(category);
   }
 
   // Update category

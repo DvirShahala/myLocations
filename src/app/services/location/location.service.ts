@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
-import { MyLocation } from "../../models/interfaces";
+import { Category, MyLocation } from "../../models/interfaces";
 import { CatergoryService } from "../category/catergory.service";
 
 @Injectable({
@@ -90,6 +90,16 @@ export class LocationService {
       .getValue()
       .filter((c) => c !== location);
     this.updateList(updateList);
+  }
+
+  // Delete category in location
+  deleteCategoryInLocation(category: Category) {
+    this.locationList$.value.forEach((locat: MyLocation) => {
+      if (locat.category.name === category.name) {
+        locat.category.name = "Category is deleted";
+      }
+    });
+    this.updateList(this.locationList$.getValue());
   }
 
   // Update location
