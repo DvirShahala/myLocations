@@ -23,6 +23,16 @@ export class MapsComponent implements OnInit, OnChanges {
   ngOnInit(): void {}
 
   private initMap(): void {
+    const cusIcon = L.icon({
+      iconUrl: "marker-icon.png",
+
+      iconSize: [38, 100], // size of the icon
+      shadowSize: [50, 64], // size of the shadow
+      iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
+      shadowAnchor: [4, 62], // the same for the shadow
+      popupAnchor: [-3, -76], // point from which the popup should open relative to the iconAnchor
+    });
+
     this.map = L.map("map", {
       center: [this.latitude, this.longitude],
       zoom: 10,
@@ -37,7 +47,9 @@ export class MapsComponent implements OnInit, OnChanges {
           '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
       }
     );
-    const marker = L.marker([this.latitude, this.longitude]).addTo(this.map);
+    const marker = L.marker([this.latitude, this.longitude], {
+      icon: cusIcon,
+    }).addTo(this.map);
 
     tiles.addTo(this.map);
   }

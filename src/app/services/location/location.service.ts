@@ -32,13 +32,16 @@ export class LocationService {
         {
           name: "Amsterdam",
           address: "Dam Squere",
-          coordinates: { latitude: 32.0853, longitude: 34.781769 },
+          coordinates: { latitude: 52.37324375, longitude: 4.892515060740985 },
           category: { name: "Bars" },
         },
         {
           name: "New York",
           address: "Times Squere",
-          coordinates: { latitude: 32.0853, longitude: 34.781769 },
+          coordinates: {
+            latitude: 40.757280550000004,
+            longitude: -73.98585503545917,
+          },
           category: { name: "Bars" },
         },
       ]);
