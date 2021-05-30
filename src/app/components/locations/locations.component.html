@@ -70,7 +70,7 @@
       <mat-row *matHeaderRowDef="displayedColumns"></mat-row>
       <mat-row
         mat-row
-        (click)="clickedRow($event, row)"
+        (click)="clickedRow(row)"
         *matRowDef="let row; columns: displayedColumns"
       ></mat-row>
 

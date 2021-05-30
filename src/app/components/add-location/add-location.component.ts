@@ -32,7 +32,6 @@ export class AddLocationComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       name: [null, [Validators.required]],
       address: [null, [Validators.required]],
-      // coordinates: [null, [Validators.required]],
       latitude: [null, [Validators.required]],
       longitude: [null, [Validators.required]],
       category: [null, [Validators.required]],

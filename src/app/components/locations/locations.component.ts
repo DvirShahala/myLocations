@@ -71,7 +71,8 @@ export class LocationsComponent implements OnInit, AfterViewInit {
     this.dataSource.sort = this.sort;
   }
 
-  clickedRow(event, row: MyLocation) {
+  clickedRow(row: MyLocation) {
+    // If the pre row diffrent from this row and the map open
     if (this.preRow != row && this.ifClick) {
       this.locationService.newSelection(row);
       this.myLatitude = row.coordinates.latitude;
